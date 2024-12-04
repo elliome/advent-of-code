@@ -87,7 +87,8 @@ def checkSouthEast (index, string):
     return abstractCheckDirection(index, string, SOUTH_END + EAST_END, SOUTH_STEP + EAST_STEP)
 
 for index, char in enumerate(input):
-    check_count += checkAll(index, input)
+    if char == 'X':
+        check_count += checkAll(index, input)
 
 print()
 print(check_count)
