@@ -12,9 +12,8 @@ junction_box_to_network_lookup: Dict[tuple[int, int, int], Optional[int]] = {}
 network_to_junction_box: Dict[int, set[tuple[int, int, int]]] = {}
 all_paths_between_junction_boxes: List[Path] = []
 
-@functools.cache
-def find_distance (a: tuple[int,int,int], b: tuple[int,int,int]) -> int:
-    return math.sqrt(math.pow(abs(a[0] - b[0]), 2) + math.pow(abs(a[1] - b[1]), 2) + math.pow(abs(a[2] - b[2]), 2))
+def find_distance (a: tuple[int,int,int], b: tuple[int,int,int]) -> float:
+    return math.pow(a[0] - b[0], 2) + math.pow(a[1] - b[1], 2) + math.pow(a[2] - b[2], 2)
 
 def join_network(a,b):
     if a == b:
@@ -28,7 +27,7 @@ def join_network(a,b):
 
 
 class Path:
-    distance: object
+    distance: float
     connected_junction_boxes: list[tuple[int, int, int]]
 
     def __init__(self, connected_junction_boxes: List[tuple[int,int,int]]):
@@ -48,7 +47,6 @@ all_paths_between_junction_boxes.sort(key= lambda x: x.distance)
 network_counter = 0
 connection_counter = 0
 last_two_nodes = None
-
 for connection in all_paths_between_junction_boxes:
     connection_counter += 1
     network = network_counter
